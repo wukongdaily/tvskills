@@ -11,7 +11,7 @@
 
 2、前置：盒子已开 ADB 调试，和电脑同一网络，IP 是 <换成你盒子的IP>。首次连接电视会弹授权框，我会点「允许」。构建桌面需要 JDK 17 和 Android SDK 34，缺什么你自己装或走仓库的 Docker 构建。
 
-3、先汉化：settings put system system_locales zh-CN，然后提醒我是否重启。重启后设置详情页几分钟内会变中文；最外层设置主页的磁贴文案由亚马逊服务器异步补发，可能要等几十分钟——这不是失败，别急着返工。
+3、先汉化：settings put system system_locales zh-CN，然后提醒我是否重启。重启后设置详情页几分钟内会变中文；最外层设置主页的磁贴文案由亚马逊服务器异步补发，可能要等几十分钟——这不是失败，别急着返工。设置 `cmd alarm set-timezone Asia/Shanghai` 时区改为 Asia/Shanghai，防止时间错乱导致联网异常，进而影响汉化的时间。提示用户，一般首页时间正确的时候，设置界面就会成功的汉化了。因为这里的中文字符串是服务器下发的。
 
 4、桌面：Fire TV 拿不到默认 Home（原桌面受保护，也不要去禁它），用仓库 launcher 的 stock_home_redirect 弹回方案：改 config.xml 后构建安装 com.gathin.tvhome，绑 HomeKeyService 无障碍，am start 拉起桌面并验证弹回。桌面要包含应用库（app_library/library_button/library_ok_opens 三键）、CPU 占用率状态行（show_stats）、农历（lunar_date）。
 
@@ -21,9 +21,9 @@
 
 7、主题：把 themes/halloween 复制到仓库外做派生（上游 festival_until 已过期，改一个远期日期），推送后万圣节皮肤和壁纸都要在。
 
-8、插件：只装 addons/remote-access 这一个（快速开关 ADB 用），装完在电视弹出的「新卡片」对话框选「显示卡片」；其他插件都不要装。
+8、插件：只装 addons/remote-access 这一个（快速开关 ADB 用），装完在电视不要弹出的「新卡片」对话框选。让用户将来自己点。其他插件都不要装。
 
-9、收尾：列出已成功禁用的软件的包名和作用
+9、收尾：列出已成功禁用的软件的包名和作用，请不要关闭ADB，用户自己会关的。
 
 ---
 
